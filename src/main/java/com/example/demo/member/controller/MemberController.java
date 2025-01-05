@@ -1,7 +1,7 @@
 package com.example.demo.member.controller;
 
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.MemberVO;
+import com.example.demo.member.vo.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +36,9 @@ public class MemberController {
     }
 
     @PostMapping("create2")
-    public String create2(MemberVO memberVO, Model model){
+    public String create2(Member memberVO, Model model){
         log.info("create2 요청됨.");
-        MemberVO memberVO2 = memberService.createMember(memberVO);
+        Member memberVO2 = memberService.createMember(memberVO);
         System.out.println("insert 결과 ====> " + memberVO2);
         model.addAttribute("memberVO", memberVO);
         return "member/create2";
@@ -94,7 +94,7 @@ public class MemberController {
     }
 
     @PostMapping("update2")
-    public String update2(MemberVO memberVO, Model model){
+    public String update2(Member memberVO, Model model){
         model.addAttribute("memberVO", memberVO);
         return "member/update2";
     }

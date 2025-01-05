@@ -1,6 +1,6 @@
 package com.example.demo.board.controller;
 
-import com.example.demo.board.vo.BoardVO;
+import com.example.demo.board.vo.Board;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class BoardController {
     }
 
     @PostMapping("createPost2")
-    public String create2(BoardVO boardVO, Model model){
+    public String create2(Board boardVO, Model model){
         model.addAttribute("boardVO", boardVO);
         return "board/createPost2";
     }
@@ -49,7 +49,7 @@ public class BoardController {
     }
 
     @PostMapping("editPost2")
-    public String update2(BoardVO boardVO, Model model){
+    public String update2(Board boardVO, Model model){
         model.addAttribute("boardVO", boardVO);
         return "board/editPost2";
     }

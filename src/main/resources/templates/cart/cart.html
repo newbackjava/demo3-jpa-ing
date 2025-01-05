@@ -1,20 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <body>
-
 <div layout:fragment="content">
 
-    <div class="container">
-        <div class="header">장바구니</div>
-        <table>
-            <tr>
-                <td>장바구니 내용</td>
-            </tr>
-        </table>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="card shadow-sm border-success">
+                    <div class="card-header bg-success text-white text-center">
+                        <h2>장바구니 목록</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="cartForm" action="/cart/updateOrDelete" method="post">
+                            <table class="table table-bordered table-hover" style="background-color: #f9f9f9;">
+                                <thead class="bg-warning text-white">
+                                <tr class="text-center">
+                                    <th scope="col">
+                                        <input type="checkbox" id="selectAll" onclick="toggleSelectAll()"> 전체 선택
+                                    </th>
+                                    <th scope="col">장바구니 번호</th>
+                                    <th scope="col">회원 ID</th>
+                                    <th scope="col">회원 이름</th>
+                                    <th scope="col">전화번호</th>
+                                    <th scope="col">상품 번호</th>
+                                    <th scope="col">상품 이름</th>
+                                    <th scope="col">상품 가격</th>
+                                    <th scope="col">수량</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="cart : ${carts}">
+                                    <td class="text-center">
+                                        <input type="checkbox" name="selectedCartIds" th:value="${cart.cartNo}">
+                                    </td>
+                                    <td th:text="${cart.cartNo}" class="text-center"></td>
+                                    <td th:text="${cart.memberId}" class="text-center"></td>
+                                    <td th:text="${cart.memberName}" class="text-center"></td>
+                                    <td th:text="${cart.memberTel}" class="text-center"></td>
+                                    <td th:text="${cart.productId}" class="text-center"></td>
+                                    <td th:text="${cart.productName}" class="text-center"></td>
+                                    <td th:text="${cart.productPrice}" class="text-center"></td>
+                                    <td class="text-center">
+                                        <input type="number" name="cartQuantities" th:value="${cart.count}" min="1" style="width: 70px;">
+                                        <input type="hidden" name="cartIds" th:value="${cart.cartNo}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="submit" name="action" value="update" class="btn btn-primary btn-lg">수량 수정</button>
+                                <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg">선택 삭제</button>
+                                <a href="/" class="btn btn-secondary btn-lg">메인으로 돌아가기</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr>
 </div>
+
+<script>
+    // 전체 선택/해제 기능
+    function toggleSelectAll() {
+        const checkboxes = document.querySelectorAll('input[name="selectedCartIds"]');
+        const selectAll = document.getElementById('selectAll');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAll.checked;
+        });
+    }
+</script>
 
 </body>
 </html>
-
