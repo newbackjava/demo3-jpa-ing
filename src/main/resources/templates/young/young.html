@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html">
+
+<!-- satisfied Wrapper End -->
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+
+
+<!-- Header End -->
+<!-- Banner Wrapper Start -->
+<div class="container" layout:fragment="content"  style="background-color: white">
+
+  <script>
+    function youngInsert(){
+      axios.get("/young/insert")
+              .then(function (response) {
+                alert(response.data);
+                console.log(response.data);
+              }).catch(function (error) {
+                console.log(error);
+      });
+    }
+
+    function youngRead() {
+      // /young/all API 호출
+      axios.get('/young/all')
+              .then(function (response) {
+                // API에서 받은 데이터
+                const data = response.data;
+                console.log(data);
+
+                // 테이블의 tbody 선택
+                const tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML = ''; // 기존 데이터 초기화
+
+                // 데이터 삽입
+                data.forEach((item, index) => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                      <th scope="row">${index + 1}</th>
+                      <td>${item.bizId || '내용없음'}</td>
+                      <td>${item.polyBizSjnm === 'null' ? '내용없음' : item.polyBizSjnm}</td>
+                      <td>${item.cnsgNmor === 'null' ? '내용없음' : item.cnsgNmor}</td>
+                      <td>${item.rqutProcCn === 'null' ? '내용없음' : item.rqutProcCn}</td>
+                    `;
+                  tableBody.appendChild(row);
+                });
+              })
+              .catch(function (error) {
+                console.error('데이터를 가져오는 중 오류 발생:', error);
+                alert('데이터를 가져오는 중 문제가 발생했습니다.');
+              });
+    }
+  </script>
+
+  <!-- Our Services Start -->
+  <section>
+    <div class="container">
+      <div class="title">
+        <h2>외부 Open Rest API</h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-3">
+          <div class="services">
+            <div class="design-icon text-center" >
+              <img th:src="@{/images/perfect-design-icon.png}" alt="client icon">
+            </div>
+            <hr>
+            <button class="btn btn-info"  onclick="youngInsert()">
+              <h3>청년지원정책 API DB저장</h3>
+            </button>
+            <p>청년 지원 정책에 대한 정보를 Rest API를 이용해 정보를 가지고 와 DB에 저장함. </p>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+          <div class="services">
+            <div class="design-icon text-center" >
+              <img th:src="@{/images/perfect-design-icon-hover.png}" alt="client icon">
+            </div>
+            <hr>
+            <button class="btn btn-info"  id="youngRead" onclick="youngRead()">
+              <h3>청년지원정책 목록 출력</h3>
+            </button>
+              <p>청년 지원 정책에 대한 정보를 Rest API를 이용해 정보를 가지고 와 DB에 저장함. </p>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+          <div class="services">
+            <div class="design-icon text-center" >
+              <img th:src="@{/images/security-icon.png}" alt="client icon">
+            </div>
+            <hr>
+            <button class="btn btn-warning"  id="movieInsert">
+              <h3>영화 관련 정보 API DB저장</h3>
+            </button>
+            <p>영화에 대한 정보를 Rest API를 이용해 정보를 가지고 와 DB에 저장함. </p>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+          <div class="services">
+            <div class="design-icon text-center" >
+              <img th:src="@{/images/security-icon-hover.png}" alt="client icon">
+            </div>
+            <hr>
+            <button class="btn btn-warning"  id="movieRead">
+              <h3>영화관련정보 목록 출력</h3>
+            </button>
+            <p>청년 지원 정책에 대한 정보를 Rest API를 이용해 정보를 가지고 와 DB에 저장함. </p>
+          </div>
+        </div>
+      </div>
+      <div class="section-divider"></div>
+      <!-- Satisfied Wrapper start -->
+      <!-- 테이블 추가 -->
+      <section class="our-services">
+        <div class="container">
+          <div class="title">
+            <h2>청년지원 정책 목록</h2>
+          </div>
+
+          <!-- 테이블 시작 -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped" style="width: 95%;">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">API 이름</th>
+                <th scope="col">설명</th>
+                <th scope="col">상태</th>
+              </tr>
+              </thead>
+              <tbody id="tableBody">
+              <tr>
+                <th scope="row">1</th>
+                <td>청년지원정책 API GET</td>
+                <td>청년 지원 정책 데이터를 가져오는 API</td>
+                <td>정상</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>청년지원정책 API DB 저장</td>
+                <td>청년 지원 정책 데이터를 DB에 저장</td>
+                <td>정상</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>영화 정보 API GET</td>
+                <td>영화 정보를 가져오는 API</td>
+                <td>정상</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>영화 정보 API DB 저장</td>
+                <td>영화 정보를 DB에 저장</td>
+                <td>정상</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- 테이블 끝 -->
+
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+</html>

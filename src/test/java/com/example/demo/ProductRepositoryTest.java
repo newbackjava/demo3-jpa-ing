@@ -1,7 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.product.dao.ProductRepository;
-import com.example.demo.product.vo.Product;
+import com.example.demo.repository.ProductRepository;
+import com.example.demo.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ class ProductRepositoryTest {
     ProductRepository productRepository;
 
     @Test
-    @Sql("/insert-product.sql")
+    @Sql("/insert-product.sql_")
     public void insertProduct() {
         List<Product> products = productRepository.findAll();
         assertThat(products.size()).isEqualTo(4);
@@ -32,7 +32,7 @@ class ProductRepositoryTest {
 
     @Test
     public void saveProduct() {
-        Product product = Product.builder().id(4L).name("nike").price(1000).build();
+        Product product = Product.builder().productId(4L).name("nike").price(1000).build();
         productRepository.save(product);
         assertThat(productRepository.findById(4L)).isNull();
     }
@@ -40,8 +40,8 @@ class ProductRepositoryTest {
     public void saveProduct2() {
 
         List<Product> products = List.of(
-                Product.builder().id(5L).name("adidas").price(2000).build(),
-                Product.builder().id(6L).name("adidas").price(3000).build()
+                Product.builder().productId(5L).name("adidas").price(2000).build(),
+                Product.builder().productId(6L).name("adidas").price(3000).build()
                 );
 
         productRepository.saveAll(products);
@@ -51,7 +51,7 @@ class ProductRepositoryTest {
 
     @Test
     public void updateProduct() {
-        Product product = productRepository.findById(1L).get();
+        Product product = productRepository.findById(4L).get();
         product.setName("@@@@@@@@@@@");
         productRepository.save(product);
         assertThat(productRepository.findById(1L).get().getName()).isEqualTo("@@@@@@@@@@@@");

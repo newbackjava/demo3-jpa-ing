@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html">
+<head>
+  <title>WebSocket Chat</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <style>
+    /* 채팅 메시지 스타일 */
+    .chat-message {
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      max-width: 80%;
+    }
+    .chat-message.sender {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      align-self: flex-start;
+    }
+    .chat-message.receiver {
+      background-color: #f8d7da;
+      color: #721c24;
+      align-self: flex-end;
+    }
+    .chat-message .message-header {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .chat-message .message-body {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .chat-message .message-time {
+      font-size: 12px;
+      color: gray;
+      margin-top: 5px;
+      text-align: right;
+    }
+    /* 채팅 박스 정렬 */
+    .chat-box-container {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+  <script>
+    let stompClient = null;
+    let loginId = 'apple';
+
+    function connect() {
+      const socket = new SockJS('/chat-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function (response) {
+          const json = JSON.parse(response.body);
+          console.log('Received message:', json);
+          json.message = json.message.replace(/^"|"$/g, '');
+          showMessage(json);
+        });
+      });
+    }
+
+    function sendMessage() {
+      const messageInput = document.getElementById('messageInput').value;
+      const data = {
+        "message": messageInput,
+        "createdAt": new Date(),
+        "loginId": loginId
+      }
+      if (messageInput.trim() !== '') {
+        stompClient.send("/app/sendMessage", {}, JSON.stringify(data));
+        document.getElementById('messageInput').value = '';
+      }
+    }
+
+    function showMessage(json) {
+      const chatBox = document.getElementById('chat-box');
+      const messageElement = document.createElement('div');
+      const isSender = json.loginId === loginId;
+
+      messageElement.classList.add('chat-message', isSender ? 'sender' : 'receiver');
+      messageElement.innerHTML = `
+        <div class="message-header"><img src="/images/email-icon.png" width="30" height="30"> ${json.loginId}</div>
+        <div class="message-body">${json.message}</div>
+        <div class="message-time">${new Date(json.createdAt).toLocaleString()}</div>
+      `;
+
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 자동 하단 이동
+    }
+
+    window.onload = connect;
+  </script>
+</head>
+<body>
+<div class="container" layout:fragment="content" style="background-color: white">
+  <!-- inner wrapper Start -->
+  <section class="inner-wrapper contact-us">
+    <div class="container">
+      <div class="title">
+        <span><img th:src="@{images/email-icon.png}"></span>
+        <h2>Contact Us</h2>
+        <p>You want to know more information? Send us a chatMessage!</p>
+      </div>
+      <div class="row">
+        <!-- Chat Box -->
+        <div class="col-md-6">
+          <div class="card shadow">
+            <div class="card-header text-white bg-primary">
+              <h1 class="mb-0">ChatBOT (apple)</h1>
+            </div>
+            <div class="card-body chat-box-container bg-warning"
+                 style="border:0; height: 500px; width: 100%; overflow-y: auto;"
+                 id="chat-box">
+              <!-- 메시지가 표시될 영역 -->
+            </div>
+            <div class="card-footer d-flex">
+              <input type="text"
+                     id="messageInput"
+                     class="form-control me-2"
+                     placeholder="챗봇을 시작하고 싶으면 '시작'이라고 입력하세요." />
+              <button class="btn btn-primary" style="width: 100%;" onclick="sendMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+        <!-- Google Map -->
+        <div class="col-md-6">
+          <div class="google-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.7736560504363!2d126.9770016754924!3d37.5603961720402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9e22c2949e59%3A0x24db86812bc0c977!2zKOyjvCnsi6DshLjqs4TslYTsnbTslaTslKg!5e0!3m2!1sko!2skr!4v1736602514279!5m2!1sko!2skr"
+                    style="border:0; height: 650px; width: 100%;"
+                    allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

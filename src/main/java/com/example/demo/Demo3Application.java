@@ -11,7 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EntityScan(basePackages = {"com.example.demo.cart.entity", "com.example.demo.product.vo", "com.example.demo.member.vo", "com.example.demo.board.vo"})
+@EntityScan(basePackages =
+                {"com.example.demo.entity"})
 public class Demo3Application implements CommandLineRunner {
 
     @Autowired
@@ -37,7 +38,7 @@ public class Demo3Application implements CommandLineRunner {
         // 애플리케이션 시작 후 콘솔에 링크 출력
         System.out.println("========================================");
         System.out.println("Application is running at:");
-        System.out.println("http://localhost:8888");
+        System.out.println("http://localhost:" + port);
         System.out.println("========================================");
     }
 
