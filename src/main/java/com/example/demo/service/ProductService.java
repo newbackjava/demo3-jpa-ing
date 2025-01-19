@@ -20,4 +20,16 @@ public class ProductService {
     public Product findById(Long productId) {
         return productRepository.findById(productId).orElse(null);
     }
+
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void delete(Long productId) {
+        productRepository.deleteById(productId);
+    }
+
+    public Product update(Product product) {
+        return productRepository.save(product);
+    }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html">
+<!-- Banner Wrapper Start -->
+<div class="container" layout:fragment="content" style="background-color: white; padding: 30px;">
+
+    <!-- Update Product Section -->
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h2 th:text="'Update ' + ${product.name}">Update Product</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/product/update2}" method="post">
+                <div class="form-group mb-3">
+                    <label for="productId" class="form-label">Product ID</label>
+                    <input type="text" id="productId" name="productId" class="form-control"
+                           th:value="${product.productId}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input type="text" id="name" name="name" class="form-control"
+                           th:value="${product.name}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="company" class="form-label">Company</label>
+                    <input type="text" id="company" name="company" class="form-control"
+                           th:value="${product.company}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" id="price" name="price" class="form-control"
+                           th:value="${product.price}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="content" class="form-label">Description</label>
+                    <textarea id="content" name="content" class="form-control" rows="4" required
+                              th:text="${product.content}"></textarea>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">수정 완료</button>
+                    <a th:href="@{/product/product}" class="btn btn-danger">수정 취소</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

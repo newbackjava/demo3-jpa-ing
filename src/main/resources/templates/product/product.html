@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html">
+<!-- Header End -->
+<!-- Banner Wrapper Start -->
+<div class="container" layout:fragment="content" style="background-color: white">
+
+  <!-- Testimonials and team Start -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="title">
+        <h2>PRODUCTS</h2>
+        <p>청년들이 선호하는 제품을 선별하여 판매합니다.</span></p>
+      </div>
+      <div id="testimonials" class="owl-carousel owl-theme">
+
+        <!-- model list 반복 처리 -->
+        <div class="item" th:each="product : ${list}">
+          <div class="tes-wrapper">
+                   <span>
+                      <a th:href="@{/product/read/{productId}(productId=${product.productId})}">
+                        <img th:src="@{/images/com.png}" alt="Smart App">
+                      </a>
+                  </span>
+            <h1 th:text="${product.name}" class="bg-primary"></h1>
+              <!-- 제품 이름 -->
+            <h3 th:text="${product.company}"></h3>
+            <p th:text="${product.price}">
+              <!-- 상품 가격 -->
+            </p>
+          </div>
+        </div>
+<!-- model list로 반복문 생성 -->
+
+
+      </div>
+      <div class="section-divider"></div>
+      <div class="title">
+        <h2>제품 마케팅/판매 Team</h2>
+      </div>
+      <div class="team">
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <div class="img-box"> <img th:src="@{/images/man3.png}" alt="Team1" title="Team1"
+                                       class="img-box img-rounded"
+                                       style="height: 300px; width: 250px;">
+              <div class="text-center">
+                <h4>Robin Williams</h4>
+                <h5>CEO/Founder<span>at demolink.org</span></h5>
+                <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a> <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a> <a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a> <a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a> <a href="javascript:void(0)"><i class="fa fa-youtube-play"></i></a> </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="img-box"> <img th:src="@{/images/man2.png}" alt="Team2" title="Team2"
+                                       class="img-box img-rounded"
+                                       style="height: 300px; width: 250px;">
+              <div class="text-center">
+                <h4>Audrey Anne</h4>
+                <h5>CEO/Founder<span>at demolink.org</span></h5>
+                <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a> <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a> <a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a> <a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a> <a href="javascript:void(0)"><i class="fa fa-youtube-play"></i></a> </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="img-box"> <img th:src="@{/images/woman.png}" alt="Team3" title="Team3"
+                                       class="img-box img-rounded"
+                                       style="height: 300px; width: 250px;">
+              <div class="text-center">
+                <h4>Jenniffer</h4>
+                <h5>CEO/Founder<span>at demolink.org</span></h5>
+                <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a> <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a> <a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a> <a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a> <a href="javascript:void(0)"><i class="fa fa-youtube-play"></i></a> </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="img-box"> <img th:src="@{/images/woman2.png}" alt="Team4" title="Team4"
+                                       class="img-box img-rounded"
+                                       style="height: 300px; width: 250px;">
+              <div class="text-center">
+                <h4>Mary Jane</h4>
+                <h5>CEO/Founder<span>at demolink.org</span></h5>
+                <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a> <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a> <a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a> <a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a> <a href="javascript:void(0)"><i class="fa fa-youtube-play"></i></a> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Testimonials and Team End -->
+  <!-- Newsletter Start -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-5">
+          <h3>Subscribe for newsletter to  Get updates</h3>
+        </div>
+        <div class="col-sm-12 col-md-7">
+          <div class="form">
+            <input type="text" placeholder="Enter your Email" id="exampleInputName" class="form-control first">
+            <input type="text" class="bttn" value="Subscribe">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Newsletter End -->
+
+
+
+</div>
+</html>

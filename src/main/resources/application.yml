@@ -49,7 +49,7 @@ spring:
     show-sql: true  # SQL 출력 활성화
   sql:
     init:
-      mode: always # schema.sql과 data.sql 실행 활성화
+      mode: always # schema.sql과 data.sql_ 실행 활성화
 
 # schema.sql과 data.sql은 자동인식, 파일이름 변경인 경우 다음과 같이 지정해야함.
 #      spring:
