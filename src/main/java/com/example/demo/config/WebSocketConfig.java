@@ -15,9 +15,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         config.enableSimpleBroker("/topic"); // 메시지 브로커
         config.setApplicationDestinationPrefixes("/app"); // 클라이언트에서 보낼 경로
     }
-
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat-websocket").withSockJS(); // WebSocket 엔드포인트
+        registry.addEndpoint("/chatting-websocket").withSockJS(); // WebSocket 엔드포인트
+        registry.addEndpoint("/chatbot-websocket").withSockJS(); // WebSocket 엔드포인트
     }
 }

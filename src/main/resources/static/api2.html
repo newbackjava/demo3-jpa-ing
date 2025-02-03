@@ -1,0 +1,83 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .movie-info {
+            margin-top: 20px;
+        }
+        .movie-info div {
+            margin-bottom: 8px;
+        }
+    </style>
+    <!-- Axios CDN 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Movie Details</h1>
+<button  class="btn btn-primary mb-4"  onclick="movie_all()">Get Movie All</button>
+<button  class="btn btn-danger mb-4"  onclick="movie_get()">Get Movie Information</button>
+<button  class="btn btn-info mb-4"  onclick="fetchMovieDetails()">Load Movie Details</button>
+<div id="movieDetails" class="movie-info"></div>
+<script>
+    async function movie_get() {
+        try {
+            const response = await axios.get('https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json', {
+                params: {
+                    key: '6d67fa164c41539d5695302942e640be',
+                    targetDt: '20231209'
+                }
+            });
+
+            const boxList = response.data.boxOfficeResult.dailyBoxOfficeList;
+            let movieDetailsHtml = '';
+            console.log(boxList);
+            // 비동기적으로 하나씩 서버로 데이터를 전송
+            for (const movie of boxList) {
+                movieDetailsHtml +=
+                    '<div><strong>순번:</strong> ' + movie.rnum + '</div>' +
+                    '<div><strong>랭킹:</strong> ' + movie.rank + '</div>' +
+                    '<div><strong>랭킹 증감:</strong> ' + movie.rankInten + '</div>' +
+                    '<div><strong>신규/기존 여부:</strong> ' + movie.rankOldAndNew + '</div>' +
+                    '<div><strong>영화 코드:</strong> ' + movie.movieCd + '</div>' +
+                    '<div><strong>영화 이름:</strong> ' + movie.movieNm + '</div>' +
+                    '<div><strong>개봉일:</strong> ' + movie.openDt + '</div>' +
+                    '<div><strong>매출액:</strong> ' + movie.salesAmt + '</div>' +
+                    '<div><strong>매출 점유율:</strong> ' + movie.salesShare + '</div>' +
+                    '<div><strong>전일 대비 매출 증감:</strong> ' + movie.salesInten + '</div>' +
+                    '<div><strong>매출 증감 비율:</strong> ' + movie.salesChange + '</div>' +
+                    '<div><strong>누적 매출액:</strong> ' + movie.salesAcc + '</div>' +
+                    '<div><strong>관객수:</strong> ' + movie.audiCnt + '</div>' +
+                    '<div><strong>전일 대비 관객 증감:</strong> ' + movie.audiInten + '</div>' +
+                    '<div><strong>관객 증감 비율:</strong> ' + movie.audiChange + '</div>' +
+                    '<div><strong>누적 관객수:</strong> ' + movie.audiAcc + '</div>' +
+                    '<div><strong>상영 스크린 수:</strong> ' + movie.scrnCnt + '</div>' +
+                    '<div><strong>상영 횟수:</strong> ' + movie.showCnt + '</div>' +
+                    '<hr/>';
+
+                console.log(movie)
+
+                // 서버로 데이터를 순차적으로 전송
+                await sendMoviesToServer(movie);
+
+                // 1초 대기
+                await delay(1000);
+            }
+            document.getElementById('movieDetails').innerHTML = movieDetailsHtml;
+
+        } catch (error) {
+            console.error('Error fetching movie details:', error);
+            alert('영화 정보를 불러오는데 실패했습니다.');
+        }
+    }
+
+</script>
+</body>
+
+

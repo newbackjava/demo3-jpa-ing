@@ -1,79 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-  <title>WebSocket Chat</title>
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-  <script>
-    let stompClient = null;
-    let loginId = '[[${session.loginId}]]';
-    function connect() {
-      const socket = new SockJS('/chat-websocket');
-      stompClient = Stomp.over(socket);
-      stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/messages', function (response) {
-          const json = JSON.parse(response.body);
-          console.log('Received message:', json);
-          json.message = json.message.replace(/^"|"$/g, '');
-          showMessage(json);
-        });
-      });
-    }
-
-    function sendMessage() {
-      const messageInput = document.getElementById('messageInput').value;
-      const data = {
-        "message": messageInput,
-        "createdAt": new Date(),
-        "loginId": loginId
-      }
-      if (messageInput.trim() !== '') {
-        stompClient.send("/app/sendMessage", {}, JSON.stringify(data));
-        document.getElementById('messageInput').value = '';
-      }
-    }
-
-    function showMessage(json) {
-      const chatBox = document.getElementById('chat-box');
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('alert', 'alert-secondary', 'py-1', 'px-2', 'mb-2');
-      messageElement.innerHTML = `
-                <strong>
-                    ${json.loginId}
-                </strong>: ${json.message} (${json.createdAt})`;
-      chatBox.appendChild(messageElement);
-      chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 자동 하단 이동
-    }
-
-    window.onload = connect;
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Index Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-<div class="container my-5">
+<body>
+<div class="container mt-5">
+  <h1 class="text-center mb-5">Welcome to the Chat Application</h1>
+
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-header text-white bg-primary">
-          <h5 class="mb-0" th:text="'Chat Room (' + ${session.loginId} + ')'"></h5>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">My Shop ChatBot</h5>
+          <p class="card-text">Interact with our shop's chatbot to get help with your queries.</p>
+          <a href="/chat/chat" class="btn btn-primary">Go to My Shop ChatBot</a>
         </div>
-        <div class="card-body" style="height: 300px; overflow-y: auto;" id="chat-box">
-          <!-- 메시지가 표시될 영역 -->
-        </div>
-        <div class="card-footer d-flex">
-          <input type="text"
-                 id="messageInput"
-                 class="form-control me-2"
-                 placeholder="Type your message here..." />
-          <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Real Chat</h5>
+          <p class="card-text">Join the real-time chat and start communicating with others now.</p>
+          <a href="/chat/chatting" class="btn btn-success">Go to Real Chat</a>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

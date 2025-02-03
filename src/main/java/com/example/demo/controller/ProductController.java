@@ -35,37 +35,42 @@ public class ProductController {
 
     @GetMapping("/read/{productId}")
     public String read(@PathVariable Long productId, Model model){
-        System.out.println(productId + "================================");
+      /////////////////////////////////////////////////////////////
+        System.out.println("productId: " + productId);
         Product product = productService.findById(productId);
-        System.out.println("---------------------------------------");
-        System.out.println(product);
+        System.out.println("------------------------------------");
+        System.out.println("product: " + product);
         model.addAttribute("product", product);
+      ///////////////////////////////////////////////////////////
         return "product/read";
     }
 
     @GetMapping("/update/{productId}")
     public String update(@PathVariable Long productId, Model model){
-        System.out.println(productId + "================================");
+      /////////////////////////////////////////////////////////////
+        System.out.println("productId: " + productId);
+        //검색후 모델로 지정후 수정화면으로 넘어감.
         Product product = productService.findById(productId);
-        System.out.println("---------------------------------------");
-        System.out.println(product);
         model.addAttribute("product", product);
+      ///////////////////////////////////////////////////////////
         return "product/update";
     }
 
     @PostMapping("/update2")
     public String update2(Product product, Model model) {
-        System.out.println("product" + product);
-        Product product1 = productService.update(product);
-        model.addAttribute("product", product1);
-        return "/product/read";
+      /////////////////////////////////////////////////////////////
+        System.out.println("product: " + product);
+        productService.save(product);
+      ///////////////////////////////////////////////////////////
+        return "redirect:/product/product";
     }
 
     @GetMapping("/delete/{productId}")
     public String delete(@PathVariable Long productId, Model model){
-        System.out.println(productId + "================================");
+      /////////////////////////////////////////////////////////////
+        System.out.println("productId: " + productId);
         productService.delete(productId);
-        System.out.println("---------------------------------------");
+      ///////////////////////////////////////////////////////////
         return "redirect:/product/product";
     }
 }

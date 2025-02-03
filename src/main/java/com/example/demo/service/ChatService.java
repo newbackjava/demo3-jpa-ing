@@ -13,7 +13,7 @@ public class ChatService {
 
     ChatRepository chatRepository;
 
-    public Chat saveMessage(Chat message) {
-        return chatRepository.save(message);
+    public Chat saveMessage(Chat chat) {
+        return chatRepository.save(chat);
     }
 }

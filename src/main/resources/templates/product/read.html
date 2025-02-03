@@ -25,20 +25,20 @@
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%; background-color: #f8f9fa;">Product ID</th>
-                        <td th:text="${product.productId}">12345</td>
+                        <td>[[${product.productId}]]</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f8f9fa;">Company</th>
-                        <td th:text="${product.company}">Company Name</td>
+                        <td>[[${product.name}]]</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f8f9fa;">Price</th>
-                        <td><span th:text="${product.price}"></span></td>
+                        <td><span>[[${product.price}]]</span></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f8f9fa;">Description</th>
                         <td>
-                            <p th:text="${product.content}">This is a product description.</p>
+                            <p>[[${product.content}]]</p>
                         </td>
                     </tr>
                     </tbody>
@@ -47,7 +47,7 @@
         </div>
         <div class="card-footer text-center">
             <a th:href="@{/product/update/{productId}(productId=${product.productId})}" class="btn btn-warning">상품 수정</a>
-            <a th:href="@{/product/product}" class="btn btn-primary">상품리스트로</a>
+            <a th:href="@{/product/product}"  class="btn btn-primary">상품리스트로</a>
             <a th:href="@{/product/delete/{productId}(productId=${product.productId})}" class="btn btn-danger">상품 삭제</a>
         </div>
     </div>

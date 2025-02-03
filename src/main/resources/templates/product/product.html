@@ -15,7 +15,7 @@
       </div>
       <div id="testimonials" class="owl-carousel owl-theme">
 
-        <!-- model list 반복 처리 -->
+<!-- model list 반복 처리 -->
         <div class="item" th:each="product : ${list}">
           <div class="tes-wrapper">
                    <span>
@@ -23,12 +23,9 @@
                         <img th:src="@{/images/com.png}" alt="Smart App">
                       </a>
                   </span>
-            <h1 th:text="${product.name}" class="bg-primary"></h1>
-              <!-- 제품 이름 -->
-            <h3 th:text="${product.company}"></h3>
-            <p th:text="${product.price}">
-              <!-- 상품 가격 -->
-            </p>
+            <h1 class="bg-primary" th:text="${product.name}">제품명</h1>
+            <h3 th:text="${product.company}">제조회사</h3>
+            <p th:text="${product.price}">가격</p>
           </div>
         </div>
 <!-- model list로 반복문 생성 -->

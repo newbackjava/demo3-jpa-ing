@@ -8,7 +8,11 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-
+    # file upload #######################################################
+    resources:
+      cache:
+        cachecontrol:
+          no-store: true
 
   # db setting(+dbcp) #######################################################
   datasource:
@@ -37,8 +41,8 @@ spring:
     hibernate:
       ddl-auto: update  # JPA를 통해 테이블 자동 생성
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #table명(클래스명과 동일)
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #컬럼명(변수명과 동일)
       properties:
         hibernate:
           use_sql_comments: true  # SQL 주석 출력
@@ -50,6 +54,7 @@ spring:
   sql:
     init:
       mode: always # schema.sql과 data.sql_ 실행 활성화
+      # embedded 첫번째만 실행하고 두번째부터는 실행비활성화
 
 # schema.sql과 data.sql은 자동인식, 파일이름 변경인 경우 다음과 같이 지정해야함.
 #      spring:
@@ -104,5 +109,9 @@ management:
 # #######################################################
 
 # server.port is commented out by default
-# server:
-#   port: 8888
+server:
+  port: 8888
+
+# file upload #######################################################
+upload:
+  path: "C:/Temp/demo3 - JPA - starter/src/main/resources/static/upload"
