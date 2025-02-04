@@ -6,9 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Value
 @RequestMapping("member")
@@ -31,4 +29,11 @@ public class MemberController {
         }
         return "chat2";
     }
+
+    @PostMapping("read")
+    //@ResponseBody
+    public String read(@RequestParam("id") String id) {
+        return "chat2";
+    }
+
 }
