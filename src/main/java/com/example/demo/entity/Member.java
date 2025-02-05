@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -23,4 +25,10 @@ public class Member {
 
     @Column
     private String tel;
+
+    //한 명의 멤버가 게시물을 여러개 쓸 수 있다.
+    //member(1) : bbs(다) ==> 1:다(n)
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Bbs> bbsList;
 }

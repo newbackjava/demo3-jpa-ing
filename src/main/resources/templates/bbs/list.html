@@ -48,6 +48,9 @@
     </div>
     <div class="pagination-container">
         <ul class="pagination justify-content-center">
+            <li class="page-item" th:if="${pageInfo.isFirst()}">
+                <a class="page-link" th:href="@{'/bbs/list?page=0'}">처음으로</a>
+            </li>
             <li class="page-item" th:if="${pageInfo.hasPrevious()}">
                 <a class="page-link" th:href="@{'/bbs/list?page=' + ${pageInfo.number - 1}}">이전</a>
             </li>
@@ -57,6 +60,9 @@
             </li>
             <li class="page-item" th:if="${pageInfo.hasNext()}">
                 <a class="page-link" th:href="@{'/bbs/list?page=' + ${pageInfo.number + 1}}">다음</a>
+            </li>
+            <li class="page-item" th:if="${pageInfo.isLast()}">
+                <a class="page-link" th:href="@{'/bbs/list?page=' + ${pageInfo.getTotalPages() - 1}}">마지막으로</a>
             </li>
         </ul>
     </div>
