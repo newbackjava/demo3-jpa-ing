@@ -57,6 +57,4 @@ public class ReplyRepositoryTest {
         System.out.println("======================");
         Assertions.assertEquals(4, list.size());
     }
-
-
 }

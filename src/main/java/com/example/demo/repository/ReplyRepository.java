@@ -37,7 +37,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     @Query("""
         SELECT new com.example.demo.dto.ReplyMemberDto
             (r.replyNo, m.memberId, m.name, r.content)
-        FROM Member m
+        FROM Member2 m
         JOIN Reply r ON r.writer = m.memberId
         WHERE r.replyNo = :replyNo
     """)
