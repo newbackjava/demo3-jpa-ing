@@ -72,7 +72,9 @@ spring:
 #  db/migration/V1__create_product_table.sql
 #  db/migration/V2__insert_initial_data.sql
 
-
+jwt:
+  secret: "MySecretKeyForJwtAuthentication12345!"  # JWT 서명 키 (중요!)
+  expiration: 86400000  # 1일 (24시간) 동안 토큰 유지
 
 
 

@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.entity.Team;
-import com.example.demo.entity.Users;
+import com.example.demo.entity.Users2;
 import com.example.demo.repository.TeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class TeamRepositoryTest {
         System.out.println("Team ID: " + team.getTeamId());
         System.out.println("Team Name: " + team.getTeamName());
         System.out.println("Users in this team:");
-        for (Users user : team.getUsers()) {
+        for (Users2 user : team.getUsers2()) {
             System.out.println(" - User ID: " + user.getUserId() + ", Name: " + user.getName());
         }
         System.out.println("============================");

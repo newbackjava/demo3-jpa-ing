@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users {
+public class Users2 {
     @Id
     private Long UserId;
     private String name;

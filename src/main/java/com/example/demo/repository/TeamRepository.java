@@ -12,7 +12,7 @@ public interface TeamRepository
 
     @Query("""
         SELECT t FROM Team t 
-        JOIN FETCH t.users u
+        JOIN FETCH t.users2 u
         WHERE t.teamId = :teamId
     """)
     public Team findById(@Param("teamId") int teamId);

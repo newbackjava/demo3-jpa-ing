@@ -24,5 +24,5 @@ public class Team {
     @OneToMany(mappedBy = "team",
                 fetch = FetchType.LAZY)
     @ToString.Exclude  // 무한 순환 방지
-    private List<Users> users;
+    private List<Users2> users2;
 }

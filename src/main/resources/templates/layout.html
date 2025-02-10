@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:sec2="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +35,7 @@
             background-image: url("/images/loader.gif");
         }
         body {
-           background-image: url("/images/img_1.png");
+            background-image: url("/images/img_1.png");
         }
     </style>
 
@@ -69,8 +71,15 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
+                                <!-- 로그인 상태 확인 -->
+                                <li sec:authorize="isAuthenticated()">
+                                    <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                                </li>
+                                <li sec:authorize="isAnonymous()">
+                                    <a class="nav-link" th:href="@{/login}">로그인</a>
+                                </li>
                                 <li class="active"><a href="/">Home</a></li>
-                                <li><a th:href="@{/live/live}">LIVE</a></li>
+                                <!--                                <li><a th:href="@{/live/live}">LIVE</a></li>-->
                                 <li><a th:href="@{/product/product}">PRODUCT</a></li>
                                 <li><a th:href="@{/young/young}">YOUNG</a></li>
                                 <li class="dropdown"><a href="javascript:void(0)"
@@ -79,7 +88,7 @@
                                                         role="button"
                                                         aria-haspopup="true"
                                                         aria-expanded="false">Blog
-                                                    </a>
+                                </a>
                                     <ul class="dropdown-menu">
                                         <li><a th:href="@{/blog/blog}">Blog</a></li>
                                         <li><a th:href="@{/blog/blog-details}">Blog Details</a></li>
@@ -88,6 +97,8 @@
                                 <li><a th:href="@{/chat/chat}">Contact Us</a></li>
                                 <li><a th:href="@{/board/board}">BOARD</a></li>
                                 <li><a th:href="@{/bbs/bbs}">BBS</a></li>
+                                <li><a th:href="@{/kafka/kafka}">KAFKA</a></li>
+
                             </ul>
                         </div>
                         <!-- /.navbar-collapse -->
@@ -139,7 +150,7 @@
                         <div class="info">
                             <h3>Our Location</h3>
                             <p>남대문로 10<br>
-                               신세계C&C빌딩</p>
+                                신세계C&C빌딩</p>
                         </div>
                     </div>
                 </div>
